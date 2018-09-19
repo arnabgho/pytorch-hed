@@ -40,9 +40,9 @@ targetTransform = transforms.Compose([
                 transforms.ToTensor()
             ])
 
-valDataset = TrainDataset(valPath, dataRoot, 
+valDataset = TrainDataset(valPath, dataRoot,
                           transform, targetTransform)
-trainDataset = TrainDataset(trainPath, dataRoot, 
+trainDataset = TrainDataset(trainPath, dataRoot,
                             transform, targetTransform)
 
 valDataloader = DataLoader(valDataset, shuffle=False)
@@ -78,7 +78,7 @@ optimizer = torch.optim.SGD([
             ], lr=lr, momentum=0.9)
 
 # initialize trainer class
-trainer = Trainer(net, optimizer, trainDataloader, valDataloader, 
+trainer = Trainer(net, optimizer, trainDataloader, valDataloader,
                   nBatch=nBatch, maxEpochs=15, cuda=True, gpuID=gpuID,
                   lrDecayEpochs=lrDecayEpoch)
 

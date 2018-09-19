@@ -20,8 +20,8 @@ from torch.utils.data import Dataset
 
 # BSDS dataset class for training data
 class TrainDataset(Dataset):
-    def __init__(self, fileNames, rootDir, 
-                 transform=None, target_transform=None):        
+    def __init__(self, fileNames, rootDir,
+                 transform=None, target_transform=None):
         self.rootDir = rootDir
         self.transform = transform
         self.targetTransform = target_transform
@@ -45,20 +45,22 @@ class TrainDataset(Dataset):
             targetImage = self.targetTransform(targetImage)
 
         return inputImage, targetImage
-    
+
 # dataset class for test dataset
 class TestDataset(Dataset):
-    def __init__(self, fileNames, rootDir, transform=None):
+    def __init__(self,fileNames, rootDir, transform=None):
         self.rootDir = rootDir
         self.transform = transform
-        self.frame = pd.read_csv(fileNames, dtype=str, delimiter=' ')
-
+        print(rootDir)
+        self.frame = os.listdir(rootDir)  #
+        #self.frame = pd.read_csv(fileNames, dtype=str, delimiter=' ',engine='python')
     def __len__(self):
         return len(self.frame)
 
     def __getitem__(self, idx):
         # input and target images
-        fname = self.frame.iloc[idx, 0]
+        #fname = self.frame.iloc[idx, 0]
+        fname = self.frame[idx]
         inputName = os.path.join(self.rootDir, fname)
 
         # process the images
